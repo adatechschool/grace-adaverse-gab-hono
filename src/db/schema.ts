@@ -14,6 +14,7 @@ export const promosTable = pgTable("promos", {
 export const projetEtudiantsTable = pgTable("projets_etudiants", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     titre: varchar({ length: 100 }).notNull(),
+    auteur: varchar({ length: 20}),
     slug: varchar({ length: 255}).notNull().unique(),
     img: text(),
     lienGithub: varchar({ length: 255}).notNull(),
