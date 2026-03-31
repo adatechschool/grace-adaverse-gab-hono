@@ -52,34 +52,30 @@ export default function NewProjetPopup() {
   return (
     <>
       {/* Botón en el header que abre el dialog */}
-      <button
-        onClick={() => setOpen(true)}
-        className="bg-red-600 text-black px-4 py-2 rounded hover:bg-red-700"
-      >
+      <button onClick={() => setOpen(true)}>
         Proposer un projet
       </button>
 
       {/* El dialog solo se renderiza en el DOM cuando open === true */}
       {open && (
         // Overlay oscuro detrás del dialog
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div>
           
           {/* Contenedor del dialog */}
-          <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl">
-            <h2 className="text-xl font-bold mb-4">Proposer un projet</h2>
+          <div>
+            <h2>Proposer un projet</h2>
 
             {success ? (
               // Mensaje de éxito temporal antes de cerrar
-              <p className="text-green-600 font-medium">Projet proposé avec succès ✅</p>
+              <p>Projet proposé avec succès ✅</p>
             ) : (
               // action={handleSubmit} conecta el submit del form con nuestra función
-              <form action={handleSubmit} className="flex flex-col gap-4">
+              <form action={handleSubmit}>
                 
                 {/* Título — obligatorio */}
                 <input
                   name="titre"
                   placeholder="Titre du projet"
-                  className="border rounded px-3 py-2"
                   required
                 />
 
@@ -87,14 +83,12 @@ export default function NewProjetPopup() {
                 <input
                   name="auteur"
                   placeholder="Auteur(e) du projet"
-                  className="border rounded px-3 py-2"
                 />
 
                 {/* GitHub — obligatorio */}
                 <input
                   name="lienGithub"
                   placeholder="Lien GitHub"
-                  className="border rounded px-3 py-2"
                   required
                 />
 
@@ -102,22 +96,20 @@ export default function NewProjetPopup() {
                 <input
                   name="lienDemo"
                   placeholder="Lien démo (optionnel)"
-                  className="border rounded px-3 py-2"
                 />
 
                 {/* Fecha de creación — el usuario la elige */}
-                <div className="flex flex-col gap-1">
-                  <label className="text-sm text-gray-600">Date de création</label>
+                <div>
+                  <label>Date de création</label>
                   <input
                     name="dateCreation"
                     type="date"
-                    className="border rounded px-3 py-2"
                     required
                   />
                 </div>
 
                 {/* Select de promos — se puebla desde /api/promos */}
-                <select name="promoId" className="border rounded px-3 py-2" required>
+                <select name="promoId" required>
                   <option value="">-- Choisir une promo --</option>
                   {promos.map(p => (
                     <option key={p.id} value={p.id}>{p.nom}</option>
@@ -125,7 +117,7 @@ export default function NewProjetPopup() {
                 </select>
 
                 {/* Select de proyectos Ada — se puebla desde /api/projets-ada */}
-                <select name="projetAdaId" className="border rounded px-3 py-2" required>
+                <select name="projetAdaId" required>
                   <option value="">-- Choisir un projet Ada --</option>
                   {projetsAda.map(p => (
                     <option key={p.id} value={p.id}>{p.nom}</option>
@@ -133,19 +125,17 @@ export default function NewProjetPopup() {
                 </select>
 
                 {/* Mensaje de error si la Server Action retorna { error } */}
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+                {error && <p>{error}</p>}
 
-                <div className="flex justify-end gap-2 mt-2">
+                <div>
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    className="px-4 py-2 rounded border hover:bg-gray-100"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded bg-red-600 text-black hover:bg-red-700"
                   >
                     Proposer
                   </button>
