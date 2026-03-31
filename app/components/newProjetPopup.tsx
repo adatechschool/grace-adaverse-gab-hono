@@ -1,6 +1,6 @@
-"use client";
-// "use client" indica que este componente se ejecuta en el navegador.
-// Es necesario porque usamos useState, useEffect y eventos del usuario.
+//app/components/nowProjetPopup.tsx
+
+"use client"; // "use client" indica que este componente se ejecuta en el navegador.
 
 import { useState, useEffect } from "react";
 import { proposerProjet } from "../actions/proposerProjet";
@@ -9,7 +9,8 @@ type Promo = { id: number; nom: string };
 type ProjetAda = { id: number; nom: string };
 
 export default function NewProjetPopup() {
-  // Estado para controlar si el dialog está abierto o cerrado
+  
+  // Estado para controlar si el popup está abierto o cerrado
   const [open, setOpen] = useState(false);
   
   // Datos para poblar los <select> del formulario
@@ -20,9 +21,8 @@ export default function NewProjetPopup() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Se ejecuta cada vez que el dialog se abre.
-  // Fetcha las promos y proyectos Ada para llenar los selects.
-  // El array [open] significa: "ejecuta esto cuando 'open' cambie".
+  // Este useEffect es para recuperar a través de un fetch las promos y los proyectos de ada, para así poder ponerlos en los <select>
+  //Se ejecuta cuando el popup está [open]
   useEffect(() => {
     if (open) {
       fetch("/api/promos").then(r => r.json()).then(setPromos);
@@ -51,17 +51,14 @@ export default function NewProjetPopup() {
 
   return (
     <>
-      {/* Botón en el header que abre el dialog */}
+      {/* Botón en el header que abre popup */}
       <button onClick={() => setOpen(true)}>
         Proposer un projet
       </button>
 
-      {/* El dialog solo se renderiza en el DOM cuando open === true */}
+      {/* El popup solo se renderiza en el DOM cuando open === true */}
       {open && (
-        // Overlay oscuro detrás del dialog
-        <div>
-          
-          {/* Contenedor del dialog */}
+        <div>          
           <div>
             <h2>Proposer un projet</h2>
 
@@ -69,46 +66,38 @@ export default function NewProjetPopup() {
               // Mensaje de éxito temporal antes de cerrar
               <p>Projet proposé avec succès ✅</p>
             ) : (
-              // action={handleSubmit} conecta el submit del form con nuestra función
-              <form action={handleSubmit}>
-                
-                {/* Título — obligatorio */}
+              <form action={handleSubmit}>                
                 <input
                   name="titre"
                   placeholder="Titre du projet"
-                  required
+                  required // Es obligatorio poner un título
                 />
 
-                {/* Auteur — el nombre de quien propone el proyecto */}
                 <input
                   name="auteur"
                   placeholder="Auteur(e) du projet"
                 />
 
-                {/* GitHub — obligatorio */}
                 <input
                   name="lienGithub"
                   placeholder="Lien GitHub"
-                  required
+                  required // Link obligatorio para validar el form
                 />
 
-                {/* Demo — opcional */}
                 <input
                   name="lienDemo"
                   placeholder="Lien démo (optionnel)"
                 />
 
-                {/* Fecha de creación — el usuario la elige */}
                 <div>
                   <label>Date de création</label>
                   <input
                     name="dateCreation"
                     type="date"
-                    required
+                    required // obligatorio para el form
                   />
                 </div>
 
-                {/* Select de promos — se puebla desde /api/promos */}
                 <select name="promoId" required>
                   <option value="">-- Choisir une promo --</option>
                   {promos.map(p => (
@@ -116,7 +105,6 @@ export default function NewProjetPopup() {
                   ))}
                 </select>
 
-                {/* Select de proyectos Ada — se puebla desde /api/projets-ada */}
                 <select name="projetAdaId" required>
                   <option value="">-- Choisir un projet Ada --</option>
                   {projetsAda.map(p => (
@@ -124,7 +112,7 @@ export default function NewProjetPopup() {
                   ))}
                 </select>
 
-                {/* Mensaje de error si la Server Action retorna { error } */}
+                {/* Mensaje de error si la Server Action "proposerProjet" retorna { error } */}
                 {error && <p>{error}</p>}
 
                 <div>

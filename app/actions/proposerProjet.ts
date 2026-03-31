@@ -50,4 +50,3 @@ export async function proposerProjet(formData: FormData) {
 
     return { success: true }
 }
-
