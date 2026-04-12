@@ -1,3 +1,5 @@
+//src/lib/utils.ts
+
 export function generateSlug(titre: string): string {
   return titre
     .toLowerCase()

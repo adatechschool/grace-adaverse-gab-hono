@@ -1,3 +1,4 @@
+//src/db/schema.ts
 import { date, integer, pgTable, text, varchar } from "drizzle-orm/pg-core";
 
 export const projetsAdaTable = pgTable("projets_ada", {

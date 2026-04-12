@@ -1,3 +1,4 @@
+//src/db/seed.ts
 import { db } from "@/src/index";
 import { projetEtudiantsTable, projetsAdaTable, promosTable } from "./schema";
 import { generateSlug } from "../lib/utils";
