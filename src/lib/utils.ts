@@ -18,8 +18,7 @@ export function getThumbnailUrl(lienGithub: string): string {
     const user = parts[0];
     const repo = parts[1];
 
-    return `https://github.com/${user}/${repo}/blob/main/thumbnail.png?raw=true`;
-  } catch {
+    return `https://raw.githubusercontent.com/${user}/${repo}/main/thumbnail.png`;  } catch {
     return "/no-image-available.jpg"; // imagen por defecto (en carpeta "public") si el link no resulta ser válido
   }
 }
