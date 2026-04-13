@@ -1,3 +1,5 @@
+//app/api/promos/route.ts
+
 import { db } from "@/src";
 import { promosTable } from "@/src/db/schema";
 import { NextResponse } from "next/server";

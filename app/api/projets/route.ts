@@ -1,3 +1,4 @@
+//app/api/projets/route.ts
 import { db } from "@/src";
 import { projetEtudiantsTable, projetsAdaTable, promosTable } from "@/src/db/schema";
 import { desc, eq, isNotNull } from "drizzle-orm";
