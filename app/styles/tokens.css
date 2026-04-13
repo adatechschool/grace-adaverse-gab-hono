@@ -1,0 +1,60 @@
+/* app/styles/tokens.css */
+
+:root {
+  /* ─── Colores base (inspiración Netflix) ─── */
+  --color-background:       #141414;
+  --color-surface:          #1f1f1f;
+  --color-surface-elevated: #2a2a2a;
+  --color-border:           rgba(255, 255, 255, 0.1);
+
+  --color-primary:          #e50914;
+  --color-primary-hover:    #f40612;
+
+  --color-text-primary:     #ffffff;
+  --color-text-secondary:   #b3b3b3;
+  --color-text-muted:       #6b6b6b;
+
+  /* ─── Tipografía ─── */
+  --font-sans:    'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;      /* 16px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-2xl: 2rem;     /* 32px */
+  --font-size-3xl: 2.5rem;   /* 40px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold:   700;
+
+  --line-height-tight:  1.2;
+  --line-height-normal: 1.6;
+
+  /* ─── Espaciado ─── */
+  --space-1:  0.25rem;  /* 4px  */
+  --space-2:  0.5rem;   /* 8px  */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-5:  1.25rem;  /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* ─── Layout ─── */
+  --max-width:        1400px;
+  --navbar-height:    68px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* ─── Sombras ─── */
+  --shadow-card:  0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 8px 40px rgba(0, 0, 0, 0.8);
+
+  /* ─── Transiciones ─── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+}
