@@ -1,4 +1,5 @@
-//app/components/ProjetCard.tsx
+// app/components/ProjetCard.tsx
+"use client"
 
 import { getThumbnailUrl } from "@/src/lib/utils";
 import Image from "next/image";
@@ -11,32 +12,31 @@ type ProjetCardProps = {
     slug: string;
     auteur: string | null;
     lienGithub: string;
-    datePublication: string;
+    datePublication?: string | null;
     dateCreation: string;
     promoNom: string;
 }
 
-export default function ProjetCard({ id, titre, slug, auteur, lienGithub, dateCreation, promoNom }: ProjetCardProps) {
+export default function ProjetCard({ titre, slug, auteur, lienGithub, dateCreation, promoNom }: ProjetCardProps) {
 
     const [imgSrc, setImgSrc] = useState(getThumbnailUrl(lienGithub));
 
     return (
-        <Link href={`/projets/${slug}`}>
-            <div>
-            <Image
-                src={imgSrc}
-                alt={`Thumbnail du projet ${titre}`}
-                width={300}
-                height={180}
-                // Si la imagen no carga (no hay thumbnail.png en el repo), usa la imagen por defecto
-                onError={() => setImgSrc("/default-thumbnail.png")}
-                unoptimized // necesario para imágenes externas de GitHub
-            />
-            <h3>{titre}</h3>
-            {auteur && <p>{auteur}</p>}
-            <p>{promoNom}</p>
-            <p>{dateCreation}</p>  
+        <Link href={`/projets/${slug}`} className="card">
+            <div className="card__image-wrapper">
+                <Image
+                    src={imgSrc}
+                    alt={`Thumbnail du projet ${titre}`}
+                    fill
+                    onError={() => setImgSrc("/default-thumbnail.png")}
+                    unoptimized
+                />
+            </div>
+            <div className="card__body">
+                <h3 className="card__title">{titre}</h3>
+                {auteur && <p className="card__author">{auteur}</p>}
+                <span className="card__meta">{promoNom} · {dateCreation}</span>
             </div>
         </Link>
-    )
+    );
 }

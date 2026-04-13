@@ -1,7 +1,5 @@
-//app/components/nowProjetPopup.tsx
-
-"use client"; // "use client" indica que este componente se ejecuta en el navegador.
-
+// app/components/newProjetPopup.tsx
+"use client";
 import { useState, useEffect } from "react";
 import { proposerProjet } from "../actions/proposerProjet";
 
@@ -9,20 +7,12 @@ type Promo = { id: number; nom: string };
 type ProjetAda = { id: number; nom: string };
 
 export default function NewProjetPopup() {
-  
-  // Estado para controlar si el popup está abierto o cerrado
   const [open, setOpen] = useState(false);
-  
-  // Datos para poblar los <select> del formulario
   const [promos, setPromos] = useState<Promo[]>([]);
   const [projetsAda, setProjetsAda] = useState<ProjetAda[]>([]);
-  
-  // Estado para mensajes de error o éxito
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Este useEffect es para recuperar a través de un fetch las promos y los proyectos de ada, para así poder ponerlos en los <select>
-  //Se ejecuta cuando el popup está [open]
   useEffect(() => {
     if (open) {
       fetch("/api/promos").then(r => r.json()).then(setPromos);
@@ -30,17 +20,12 @@ export default function NewProjetPopup() {
     }
   }, [open]);
 
-  // Función que se ejecuta al hacer submit del formulario.
-  // Llama a la Server Action y gestiona la respuesta.
   async function handleSubmit(formData: FormData) {
     setError(null);
     const result = await proposerProjet(formData);
-
     if (result.error) {
-      // Si la Server Action retorna un error, lo mostramos en el formulario
       setError(result.error);
     } else {
-      // Si todo fue bien, mostramos confirmación y cerramos el dialog
       setSuccess(true);
       setTimeout(() => {
         setOpen(false);
@@ -51,80 +36,74 @@ export default function NewProjetPopup() {
 
   return (
     <>
-      {/* Botón en el header que abre popup */}
-      <button onClick={() => setOpen(true)}>
+      <button className="btn btn--primary" onClick={() => setOpen(true)}>
         Proposer un projet
       </button>
 
-      {/* El popup solo se renderiza en el DOM cuando open === true */}
       {open && (
-        <div>          
-          <div>
-            <h2>Proposer un projet</h2>
+        <div className="modal-overlay" onClick={() => setOpen(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h2 className="modal__title">Proposer un projet</h2>
 
             {success ? (
-              // Mensaje de éxito temporal antes de cerrar
-              <p>Projet proposé avec succès ✅</p>
+              <p className="modal__success">Projet proposé avec succès ✅</p>
             ) : (
-              <form action={handleSubmit}>                
+              <form className="modal__form" action={handleSubmit}>
                 <input
+                  className="modal__input"
                   name="titre"
                   placeholder="Titre du projet"
-                  required // Es obligatorio poner un título
+                  required
                 />
-
                 <input
+                  className="modal__input"
                   name="auteur"
                   placeholder="Auteur(e) du projet"
                 />
-
                 <input
+                  className="modal__input"
                   name="lienGithub"
                   placeholder="Lien GitHub"
-                  required // Link obligatorio para validar el form
+                  required
                 />
-
                 <input
+                  className="modal__input"
                   name="lienDemo"
                   placeholder="Lien démo (optionnel)"
                 />
-
-                <div>
-                  <label>Date de création</label>
+                <div className="modal__field">
+                  <label className="modal__label">Date de création</label>
                   <input
+                    className="modal__input"
                     name="dateCreation"
                     type="date"
-                    required // obligatorio para el form
+                    required
                   />
                 </div>
-
-                <select name="promoId" required>
+                <select className="modal__select" name="promoId" required>
                   <option value="">-- Choisir une promo --</option>
                   {promos.map(p => (
                     <option key={p.id} value={p.id}>{p.nom}</option>
                   ))}
                 </select>
-
-                <select name="projetAdaId" required>
+                <select className="modal__select" name="projetAdaId" required>
                   <option value="">-- Choisir un projet Ada --</option>
                   {projetsAda.map(p => (
                     <option key={p.id} value={p.id}>{p.nom}</option>
                   ))}
                 </select>
 
-                {/* Mensaje de error si la Server Action "proposerProjet" retorna { error } */}
-                {error && <p>{error}</p>}
+                {error && <p className="modal__error">{error}</p>}
 
-                <div>
+                <div className="modal__actions">
                   <button
                     type="button"
+                    className="btn btn--secondary"
                     onClick={() => setOpen(false)}
                   >
                     Annuler
                   </button>
-                  <button
-                    type="submit"
-                  >
+                  <button type="submit" className="btn btn--primary">
                     Proposer
                   </button>
                 </div>
